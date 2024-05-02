@@ -6,6 +6,11 @@ import view.View;
 
 public class Main {
 
+    /**
+     * The main method which starts the applicationn.
+     * 
+     * @param args Arguments for the application.
+     */
     public static void main(String[] args) {
         final DiscountRegister discountRegister = new DiscountRegister();
         final ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();

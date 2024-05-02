@@ -16,11 +16,25 @@ public class Sale {
     private float runningTotal = 0f;
     private float totalVAT = 0f;
 
+    /**
+     * Creates a new instance of the Sale class.
+     * 
+     * @param inventorySystem The external inventory system.
+     */
     public Sale(ExternalInventorySystem inventorySystem) {
         this.inventorySystem = inventorySystem;
         time = LocalDateTime.now();
     }
 
+    /**
+     * Adds an item to the sale by its ID and a quantity.
+     * If the item is already added, it increments the quantity by the given quantity.
+     * 
+     * @param itemID The item ID.
+     * @param quantity The quantity of the item.
+     * 
+     * @return The item that was added to the sale.
+     */
     public Item addItemID(String itemID, int quantity) {
         boolean isScanned = isItemScanned(itemID);
         Item item;
@@ -77,10 +91,20 @@ public class Sale {
         return items;
     }
 
+    /**
+     * Applies discounts to the sale based on the customer ID.
+     * 
+     * @param customerID The customer ID.
+     */
     public void applyDiscounts(int customerID) {
 
     }
 
+    /**
+     * Used to signal that the sale is complete and that the inventory should be reduced.
+     * 
+     * @return Output string with logs of what actions were taken to the external inventory system.
+     */
     public String completeSale() {
         String actionsLog = "";
 

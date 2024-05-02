@@ -9,7 +9,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class Printer {
-    public String printReceipt(PaymentTransaction transaction, Sale sale) {
+
+    /**
+     * Creates a new instance of the Printer class.
+     * This class instance represents a virtual version of the external printer.
+     */
+    public Printer() {
+    }
+
+    /**
+     * Virtually prints a receipt for a sale by creating a string with the receipt information and returning it.
+     * 
+     * @param sale The sale to print a receipt for.
+     * 
+     * @return The receipt string to print.
+     */
+    public String printReceipt(Sale sale) {
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

@@ -4,8 +4,13 @@ import controller.Controller;
 
 public class View {
 
+    /**
+     * Creates a new instance of the View class.
+     * The view class represents the user interface for the cashier.
+     * 
+     * @param controller The controller for the view to interact with.
+     */
     public View(Controller controller) {
-
         controller.startSale();
 
         System.out.println("Add 1 item with item id abc123:");
@@ -20,12 +25,5 @@ public class View {
         System.out.println(controller.endSale());
 
         System.out.println(controller.enterAmount(100));
-
-        // Flow 4
-        //controller.discountRequest();
-
-        // Flow 5
-
-
     }
 }
