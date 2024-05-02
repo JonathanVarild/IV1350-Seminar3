@@ -28,4 +28,8 @@ public class Register {
     public void withdrawAmount(float amount) {
         amountInside -= amount;
     }
+
+    public float getAmountInside() {
+        return amountInside;
+    }
 }
