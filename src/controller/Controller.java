@@ -4,6 +4,7 @@ import integration.ExternalAccountingSystem;
 import integration.ExternalInventorySystem;
 import integration.Printer;
 import integration.Register;
+import model.Item;
 import model.PaymentTransaction;
 import model.Sale;
 
@@ -36,8 +37,14 @@ public class Controller {
         transaction = new PaymentTransaction(sale, register, printer);
     }
 
-    public void enterItemID(String itemID, int quantity) {
-        boolean success = sale.addItemID(itemID, quantity);
+    public String enterItemID(String itemID, int quantity) {
+        Item item = sale.addItemID(itemID, quantity);
+
+        if (item != null) {
+            return String.format("Item ID: %s\nItem name: %s\nItem cost: %f SEK\nVAT: %s\nItem description: %s\n\nTotal cost (incl VAT): %f SEK\nTotal VAT: ‰f\n\n",item.itemID, item.name, item.price, item.vatRate, item.description, sale.getRunningTotal() + sale.getTotalVAT(), sale.getTotalVAT());
+        }
+
+        return "";
     }
 
     public void enterAmount(float amount) {

@@ -6,11 +6,17 @@ public class View {
 
     public View(Controller controller) {
 
-        // Flow 1
         controller.startSale();
 
+        System.out.println("Add 1 item with item id abc123:");
+        System.out.println(controller.enterItemID("abc123",1));
+
+
+        // Flow 1
+
+
         // Flow 2
-        controller.enterItemID("abc123",1);
+
 
         // Flow 3
         controller.endSale();

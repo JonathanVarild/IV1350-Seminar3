@@ -11,14 +11,14 @@ public class Sale {
 
     public LocalTime time;
     private HashMap<String, Item> items = new HashMap<>();
-    private float runningTotal;
-    private float totalVAT;
+    private float runningTotal = 0f;
+    private float totalVAT = 0f;
 
     public Sale(ExternalInventorySystem inventorySystem) {
         this.inventorySystem = inventorySystem;
     }
 
-    public boolean addItemID(String itemID, int quantity) {
+    public Item addItemID(String itemID, int quantity) {
         boolean isScanned = isItemScanned(itemID);
         Item item;
 
@@ -27,20 +27,22 @@ public class Sale {
 
             if (item != null) {
                 addItem(item, quantity);
-                return true;
+                return item;
             }
         }
         else {
             incrementItemQuantity(itemID, quantity);
-            return true;
+            return items.get(itemID);
         }
 
-        return false;
+        return null;
     }
 
     private void addItem(Item item, int quantity) {
         item.quantity += quantity;
         items.put(item.itemID, item);
+
+        updateTotals(item.price, item.vatRate, quantity);
     }
 
     private boolean isItemScanned(String itemID) {
@@ -48,7 +50,16 @@ public class Sale {
     }
 
     private void incrementItemQuantity(String itemID, int quantity) {
-        items.get(itemID).quantity += quantity;
+        Item item = items.get(itemID);
+
+        item.quantity += quantity;
+
+        updateTotals(item.price, item.vatRate, quantity);
+    }
+
+    private void updateTotals(float price, int vatRate, int quantity) {
+        runningTotal += price * quantity;
+        totalVAT += price * (vatRate / 100) * quantity;
     }
 
     public float getRunningTotal() {
