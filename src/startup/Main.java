@@ -1,10 +1,7 @@
 package startup;
 
 import controller.Controller;
-import integration.DiscountRegister;
-import integration.ExternalAccountingSystem;
-import integration.Printer;
-import integration.Register;
+import integration.*;
 import view.View;
 
 public class Main {
@@ -12,10 +9,12 @@ public class Main {
     public static void main(String[] args) {
         final DiscountRegister discountRegister = new DiscountRegister();
         final ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
-        final Register register = new Register();
-        final ExternalAccountingSystem externalAccountingSystem = new ExternalAccountingSystem();
+        final ExternalInventorySystem inventorySystem = new ExternalInventorySystem();
+
         final Printer printer = new Printer();
-        final View view = new View();
-        final Controller controller = new Controller();
+        final Register register = new Register();
+
+        final Controller controller = new Controller(inventorySystem, accountingSystem, register, printer);
+        final View view = new View(controller);
     }
 }

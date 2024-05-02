@@ -1,26 +1,36 @@
 package model;
 
+import integration.Printer;
+import integration.Register;
+
 public class PaymentTransaction {
 
-    private Sale sale;
-    private float toPay = 0;
-    private float paid = 0;
-    private float change = 0;
+    private Register register;
+    private Printer printer;
 
-    public PaymentTransaction(Sale sale) {
+    private Sale sale;
+    private float toPay;
+    private float paid = 0;
+
+    public PaymentTransaction(Sale sale, Register register, Printer printer) {
         this.sale = sale;
+        this.register = register;
+        this.printer = printer;
+
+        toPay = sale.getRunningTotal() + sale.getTotalVAT();
     }
 
     public void addPayment(float amount) {
+        paid += amount;
 
-    }
+        printer.printReceipt(this, sale);
 
-    private void calculateSums() {
-
+        register.depositAmount(amount);
+        register.withdrawAmount(getChange());
     }
 
     public float getAmountLeft() {
-        return toPay;
+        return toPay - paid;
     }
 
     public float getAmountPaid() {
@@ -28,7 +38,7 @@ public class PaymentTransaction {
     }
 
     public float getChange() {
-        return change;
+        return paid - toPay;
     }
 
 }
