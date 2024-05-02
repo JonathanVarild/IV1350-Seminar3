@@ -11,21 +11,21 @@ public class View {
         System.out.println("Add 1 item with item id abc123:");
         System.out.println(controller.enterItemID("abc123",1));
 
+        System.out.println("Add 1 item with item id abc123:");
+        System.out.println(controller.enterItemID("abc123",1));
 
-        // Flow 1
+        System.out.println("Add 1 item with item id def456:");
+        System.out.println(controller.enterItemID("def456",1));
 
+        System.out.println(controller.endSale());
 
-        // Flow 2
-
-
-        // Flow 3
-        controller.endSale();
+        System.out.println(controller.enterAmount(100));
 
         // Flow 4
         //controller.discountRequest();
 
         // Flow 5
-        controller.enterAmount(100);
+
 
     }
 }

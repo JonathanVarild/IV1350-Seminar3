@@ -20,13 +20,13 @@ public class PaymentTransaction {
         toPay = sale.getRunningTotal() + sale.getTotalVAT();
     }
 
-    public void addPayment(float amount) {
+    public String addPayment(float amount) {
         paid += amount;
-
-        printer.printReceipt(this, sale);
 
         register.depositAmount(amount);
         register.withdrawAmount(getChange());
+
+        return printer.printReceipt(this, sale);
     }
 
     public float getAmountLeft() {
