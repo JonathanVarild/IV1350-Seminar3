@@ -16,7 +16,4 @@ class ItemTest {
         assertEquals(10, item.vatRate);
         assertEquals(5, item.quantity);
     }
-
-    @Test
-    public void test
 }
