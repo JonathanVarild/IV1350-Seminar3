@@ -37,6 +37,7 @@ public class Sale {
      */
     public Item addItemID(String itemID, int quantity) {
         boolean isScanned = isItemScanned(itemID);
+
         Item item;
 
         if (!isScanned) {
