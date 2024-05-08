@@ -21,5 +21,7 @@ public class Main {
 
         final Controller controller = new Controller(inventorySystem, accountingSystem, register, printer);
         final View view = new View(controller);
+
+        view.runProgram();
     }
 }
