@@ -24,14 +24,14 @@ public class ExternalInventorySystem {
      * 
      * @return A new instance of the Item class with the item information. Null if the item ID does not exist.
      */
-    public Item getItemInfo(String itemID) {
+    public Item getItemInfo(String itemID) throws ItemNotFoundException {
         Item item = inventory.get(itemID);
 
         if (item != null) {
             return item.getZeroQuantityItem();
         }
 
-        return null;
+        throw new ItemNotFoundException(itemID);
     }
 
     /**

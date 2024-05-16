@@ -7,6 +7,7 @@ public class PaymentTransaction {
 
     private Register register;
     private Printer printer;
+    private String receiptString;
 
     private Sale sale;
     private float toPay;
@@ -31,16 +32,14 @@ public class PaymentTransaction {
      * Adds a payment to the transaction.
      * 
      * @param amount The amount that was paid.
-     * 
-     * @return The receipt data for the sale.
      */
-    public String addPayment(float amount) {
+    public void addPayment(float amount) {
         paid += amount;
 
         register.depositAmount(amount);
         register.withdrawAmount(getChange());
 
-        return printer.printReceipt(sale);
+        receiptString = printer.printReceipt(sale);
     }
 
     /**
@@ -68,6 +67,10 @@ public class PaymentTransaction {
      */
     public float getChange() {
         return paid - toPay;
+    }
+
+    public String getReceiptString() {
+        return receiptString;
     }
 
 }

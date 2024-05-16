@@ -1,6 +1,7 @@
 package model;
 
 import integration.ExternalInventorySystem;
+import integration.ItemNotFoundException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -15,6 +16,7 @@ public class Sale {
     private HashMap<String, Item> items = new HashMap<>();
     private float runningTotal = 0f;
     private float totalVAT = 0f;
+    String actionsLog = "";
 
     /**
      * Creates a new instance of the Sale class.
@@ -41,11 +43,17 @@ public class Sale {
         Item item;
 
         if (!isScanned) {
-            item = inventorySystem.getItemInfo(itemID);
 
-            if (item != null) {
-                addItem(item, quantity);
-                return item;
+            try {
+                item = inventorySystem.getItemInfo(itemID);
+
+                if (item != null) {
+                    addItem(item, quantity);
+                    return item;
+                }
+            }
+            catch (ItemNotFoundException e) {
+                // Todo later
             }
         }
         else {
@@ -103,12 +111,8 @@ public class Sale {
 
     /**
      * Used to signal that the sale is complete and that the inventory should be reduced.
-     * 
-     * @return Output string with logs of what actions were taken to the external inventory system.
      */
-    public String completeSale() {
-        String actionsLog = "";
-
+    public void completeSale() {
         for (Map.Entry<String, Item> entry : items.entrySet()) {
             String itemID = entry.getKey();
             Item item = entry.getValue();
@@ -117,7 +121,9 @@ public class Sale {
 
             actionsLog += String.format("Told external inventory system to decrease inventory quantity of item %s by %d units.\n", item.itemID, item.quantity);
         }
+    }
 
+    public String getActionsLog() {
         return actionsLog;
     }
 }

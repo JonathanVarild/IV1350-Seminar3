@@ -40,9 +40,10 @@ public class Controller {
      * Starts a new sale by creating a new instance of the Sale class.
      * Resets the transaction to null to ensure that no previous transaction is still active.
      */
-    public void startSale() {
+    public Sale startSale() {
         sale = new Sale(inventorySystem);
         transaction = null;
+        return sale;
     }
 
 
@@ -51,13 +52,12 @@ public class Controller {
      * 
      * @return Output string for view with the total cost of the sale.
      */
-    public String endSale() {
+    public PaymentTransaction endSale() {
         float runningTotal = sale.getRunningTotal();
         float totalVAT = sale.getTotalVAT();
 
         transaction = new PaymentTransaction(sale, register, printer);
-
-        return String.format("End sale:\nTotal cost (incl VAT): %s\n", OutputHelper.getFloatWithColon(runningTotal + totalVAT));
+        return transaction;
     }
 
     /**
@@ -68,31 +68,20 @@ public class Controller {
      * 
      * @return Output string for view with information related to the item added to the sale.
      */
-    public String enterItemID(String itemID, int quantity) {
-        Item item = sale.addItemID(itemID, quantity);
-
-        if (item != null) {
-            return String.format("Item ID: %s\nItem name: %s\nItem cost: %s SEK\nVAT: %s%%\nItem description: %s\n\nTotal cost (incl VAT): %s SEK\nTotal VAT: %s SEK\n",item.itemID, item.name, OutputHelper.getFloatWithColon(item.price), item.vatRate, item.description, OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()), OutputHelper.getFloatWithColon(sale.getTotalVAT()));
-        }
-
-        return "";
+    public Item enterItemID(String itemID, int quantity) {
+        return sale.addItemID(itemID, quantity);
     }
 
     /**
      * Used by view to enter the amount paid by the customer.
      * 
      * @param amount The amount paid by the customer.
-     * 
-     * @return Output string for view with information related to the payment, external inventory system and receipt.
      */
-    public String enterAmount(float amount) {
-        String receiptData = transaction.addPayment(amount);
-
+    public void enterAmount(float amount) {
+        transaction.addPayment(amount);
         accountingSystem.saveTransaction(transaction);
+        sale.completeSale();
 
-        String actionsLog = sale.completeSale();
-
-        return String.format("Customer pays %s SEK:\nSent sale info to external accounting system.\n%s\n%s", OutputHelper.getFloatWithColon(amount), actionsLog, receiptData);
     }
 
     /**
