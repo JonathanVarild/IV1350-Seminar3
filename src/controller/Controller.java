@@ -1,9 +1,6 @@
 package controller;
 
-import integration.ExternalAccountingSystem;
-import integration.ExternalInventorySystem;
-import integration.Printer;
-import integration.Register;
+import integration.*;
 import model.Item;
 import model.PaymentTransaction;
 import model.Sale;
@@ -67,8 +64,10 @@ public class Controller {
      * @param quantity The quantity of the item to add.
      * 
      * @return Output string for view with information related to the item added to the sale.
+     *
+     * @throws ItemNotFoundException the itemID couldn't be found.
      */
-    public Item enterItemID(String itemID, int quantity) {
+    public Item enterItemID(String itemID, int quantity) throws ItemNotFoundException {
         return sale.addItemID(itemID, quantity);
     }
 
@@ -76,12 +75,13 @@ public class Controller {
      * Used by view to enter the amount paid by the customer.
      * 
      * @param amount The amount paid by the customer.
+     *
+     * @throws ItemNotFoundException if a scanned item cannot be found in the inventory system.
      */
-    public void enterAmount(float amount) {
+    public void enterAmount(float amount) throws ItemNotFoundException {
+        sale.completeSale();
         transaction.addPayment(amount);
         accountingSystem.saveTransaction(transaction);
-        sale.completeSale();
-
     }
 
     /**

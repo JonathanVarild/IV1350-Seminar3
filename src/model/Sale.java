@@ -1,5 +1,6 @@
 package model;
 
+import integration.DatabaseUnavailableException;
 import integration.ExternalInventorySystem;
 import integration.ItemNotFoundException;
 
@@ -36,32 +37,22 @@ public class Sale {
      * @param quantity The quantity of the item.
      * 
      * @return The item that was added to the sale.
+     *
+     * @throws ItemNotFoundException if the itemID couldn't be found
      */
-    public Item addItemID(String itemID, int quantity) {
+    public Item addItemID(String itemID, int quantity) throws ItemNotFoundException {
         boolean isScanned = isItemScanned(itemID);
-
         Item item;
 
         if (!isScanned) {
-
-            try {
-                item = inventorySystem.getItemInfo(itemID);
-
-                if (item != null) {
-                    addItem(item, quantity);
-                    return item;
-                }
-            }
-            catch (ItemNotFoundException e) {
-                // Todo later
-            }
+            item = inventorySystem.getItemInfo(itemID);
+            addItem(item, quantity);
+            return item;
         }
         else {
             incrementItemQuantity(itemID, quantity);
             return items.get(itemID);
         }
-
-        return null;
     }
 
     private void addItem(Item item, int quantity) {
@@ -112,12 +103,25 @@ public class Sale {
     /**
      * Used to signal that the sale is complete and that the inventory should be reduced.
      */
-    public void completeSale() {
+    public void completeSale() throws ItemNotFoundException{
         for (Map.Entry<String, Item> entry : items.entrySet()) {
             String itemID = entry.getKey();
             Item item = entry.getValue();
 
-            inventorySystem.reduceInventory(itemID, item.quantity);
+            try {
+                inventorySystem.reduceInventory(itemID, item.quantity);
+            }
+            catch (ItemNotFoundException e) {
+                for (Map.Entry<String, Item> entry2 : items.entrySet()) {
+                    String itemID2 = entry.getKey();
+                    Item item2 = entry.getValue();
+
+                    if (itemID2.equals(e.getItemID()))
+                        throw e;
+
+                    inventorySystem.incrementInventory(itemID2, item2.quantity);
+                }
+            }
 
             actionsLog += String.format("Told external inventory system to decrease inventory quantity of item %s by %d units.\n", item.itemID, item.quantity);
         }
