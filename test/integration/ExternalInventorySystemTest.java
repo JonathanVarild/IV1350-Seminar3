@@ -3,6 +3,7 @@ package integration;
 import model.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.ErrorLogger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +14,7 @@ class ExternalInventorySystemTest {
     @BeforeEach
     void setUp() {
         inventorySystem = new ExternalInventorySystem();
+        ErrorLogger.setupLoggingSystem("test_errors.txt");
     }
 
     @Test

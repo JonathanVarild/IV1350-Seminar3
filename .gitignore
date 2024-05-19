@@ -45,3 +45,5 @@ out/
 .mvn/
 !**/src/main/resources/archetype-resources/
 !**/src/main/resources/filtered-resources/
+/test_errors.txt
+/errors.txt

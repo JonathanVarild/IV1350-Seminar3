@@ -2,6 +2,7 @@ package startup;
 
 import controller.Controller;
 import integration.*;
+import utilities.ErrorLogger;
 import view.View;
 
 public class Main {
@@ -12,6 +13,8 @@ public class Main {
      * @param args Arguments for the application.
      */
     public static void main(String[] args) {
+        ErrorLogger.setupLoggingSystem("errors.txt");
+
         final DiscountRegister discountRegister = new DiscountRegister();
         final ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
         final ExternalInventorySystem inventorySystem = new ExternalInventorySystem();

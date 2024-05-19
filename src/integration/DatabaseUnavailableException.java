@@ -1,9 +1,12 @@
 package integration;
 
+import utilities.ErrorLogger;
+import utilities.LoggedRuntimeException;
+
 /**
  * An unchecked exception for when a certain database is unavailable.
  */
-public class DatabaseUnavailableException extends RuntimeException {
+public class DatabaseUnavailableException extends LoggedRuntimeException {
     String databaseName;
 
     /**

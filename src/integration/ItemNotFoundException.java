@@ -1,9 +1,12 @@
 package integration;
 
+import utilities.ErrorLogger;
+import utilities.LoggedException;
+
 /**
  * A checked exception for when a itemID cannot be found.
  */
-public class ItemNotFoundException extends Exception {
+public class ItemNotFoundException extends LoggedException {
     private String itemID;
 
     /**

@@ -1,6 +1,7 @@
 package integration;
 
 import model.Item;
+import utilities.ErrorLogger;
 
 import java.util.HashMap;
 
