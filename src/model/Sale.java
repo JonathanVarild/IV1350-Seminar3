@@ -59,6 +59,12 @@ public class Sale {
         }
     }
 
+    /**
+     * Method to add an item based on a quantity.
+     *
+     * @param item The item class to add.
+     * @param quantity The quantity to add.
+     */
     private void addItem(Item item, int quantity) {
         item.quantity += quantity;
         items.put(item.itemID, item);
@@ -66,10 +72,23 @@ public class Sale {
         updateTotals(item.price, item.vatRate, quantity);
     }
 
+    /**
+     * Method to check if an item has been scanned.
+     *
+     * @param itemID The itemID to check.
+     *
+     * @return Boolean if an item with the same itemID has been scanned or not.
+     */
     private boolean isItemScanned(String itemID) {
         return items.containsKey(itemID);
     }
 
+    /**
+     * Method used to increment the item quantity of a certain item.
+     *
+     * @param itemID The itemID to increment the quantity of.
+     * @param quantity The quantity to increment by.
+     */
     private void incrementItemQuantity(String itemID, int quantity) {
         Item item = items.get(itemID);
 
@@ -78,27 +97,59 @@ public class Sale {
         updateTotals(item.price, item.vatRate, quantity);
     }
 
+    /**
+     * Method used to update the totals runningTotal and totalVAT.
+     *
+     * @param price The price to add.
+     * @param vatRate The vatRate to base the VAT calculations on.
+     * @param quantity The quantity of items.
+     */
     private void updateTotals(float price, int vatRate, int quantity) {
         runningTotal += price * quantity;
         totalVAT += price * ((float)vatRate / 100) * quantity;
     }
 
+    /**
+     * Method used to get the total price.
+     *
+     * @return The total price.
+     */
     public float getRunningTotal() {
         return runningTotal;
     }
 
+    /**
+     * Method used to get the total VAT calculated.
+     *
+     * @return The total VAT.
+     */
     public float getTotalVAT() {
         return totalVAT;
     }
 
+    /**
+     * Method used to get the total price reduction from discounts.
+     *
+     * @return Total price reduction.
+     */
     public float getTotalDiscount() {
         return totalDiscount;
     }
 
+    /**
+     * Method used to get the scanned items as an hashmap.
+     *
+     * @return Scanned items as an hashmap.
+     */
     public HashMap<String, Item> getItems() {
         return items;
     }
 
+    /**
+     * Method used to get the scanned items as an array.
+     *
+     * @return Scanned items as an array.
+     */
     public Item[] getItemsArray() {
         return items.values().toArray(new Item[0]);
     }

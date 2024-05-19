@@ -21,13 +21,15 @@ public class Controller {
 
     /**
      * Creates a new instance of the Controller class.
-     * 
-     * @param inventorySystem The external inventory system.
-     * @param accountingSystem The external accounting system.
-     * @param register The register.
-     * @param printer The printer.
+     *
+     * @param discountRegister The discount register.
+     * @param inventorySystem The inventory system.
+     * @param accountingSystem The accounting system.
+     * @param register The cash register.
+     * @param printer The receipt printer.
+     * @param totalRevenueView The total revenue view.
+     * @param totalRevenueFileOutput The total revenue file output.
      */
-
     public Controller(DiscountRegister discountRegister, ExternalInventorySystem inventorySystem, ExternalAccountingSystem accountingSystem, Register register, Printer printer, TotalRevenueView totalRevenueView, TotalRevenueFileOutput totalRevenueFileOutput) {
         this.discountRegister = discountRegister;
         this.inventorySystem = inventorySystem;
