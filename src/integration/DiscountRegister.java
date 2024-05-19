@@ -5,11 +5,22 @@ import model.Item;
 
 public class DiscountRegister {
 
+    private static final DiscountRegister DISCOUNT_REGISTER = new DiscountRegister();
+
     /**
      * Creates a new instance of the DiscountRegister class.
      * This class instance represents a virtual version of the external discount register.
      */
-    public DiscountRegister() {
+    private DiscountRegister() {
+    }
+
+    /**
+     * Getter to return singleton of Discount Register.
+     *
+     * @return The single DiscountRegister instance available.
+     */
+    public static DiscountRegister getDiscountRegister() {
+        return DISCOUNT_REGISTER;
     }
 
     /**

@@ -17,9 +17,8 @@ public class Main {
     public static void main(String[] args) {
         ErrorLogger.setupLoggingSystem("errors.txt");
 
-        final DiscountRegister discountRegister = new DiscountRegister();
-        final ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
-        final ExternalInventorySystem inventorySystem = new ExternalInventorySystem();
+        final ExternalAccountingSystem accountingSystem = ExternalAccountingSystem.getExternalAccountingSystem();
+        final ExternalInventorySystem inventorySystem = ExternalInventorySystem.getExternalInventorySystem();
 
         final Printer printer = new Printer();
         final Register register = new Register();

@@ -13,7 +13,7 @@ class ExternalInventorySystemTest {
 
     @BeforeEach
     void setUp() {
-        inventorySystem = new ExternalInventorySystem();
+        inventorySystem = ExternalInventorySystem.getExternalInventorySystem();
         ErrorLogger.setupLoggingSystem("test_errors.txt");
     }
 

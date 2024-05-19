@@ -17,13 +17,11 @@ class ControllerTest {
 
     @BeforeEach
     public void setUp() {
-        ExternalInventorySystem inventorySystem = new ExternalInventorySystem();
-        ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
         Register register = new Register();
         Printer printer = new Printer();
         TotalRevenueView totalRevenueView = new TotalRevenueView();
         TotalRevenueFileOutput totalRevenueFileOutput = new TotalRevenueFileOutput();
-        Controller controller = new Controller(inventorySystem, accountingSystem, register, printer, totalRevenueView, totalRevenueFileOutput);
+        Controller controller = new Controller(ExternalInventorySystem.getExternalInventorySystem(), ExternalAccountingSystem.getExternalAccountingSystem(), register, printer, totalRevenueView, totalRevenueFileOutput);
     }
 
     @Test
