@@ -30,22 +30,22 @@ public class View {
 
         try {
             System.out.println("Add 1 item with item id abc123:");
-            Item item = controller.enterItemID("abc123",1);
+            Item item = controller.enterItemID("abc123",2);
             System.out.printf("Item ID: %s\nItem name: %s\nItem cost: %s SEK\nVAT: %s%%\nItem description: %s\n%n",item.itemID, item.name, OutputHelper.getFloatWithColon(item.price), item.vatRate, item.description);
             System.out.printf("Total cost (incl VAT): %s SEK\nTotal VAT: %s SEK\n%n", OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()), OutputHelper.getFloatWithColon(sale.getTotalVAT()));
         }
         catch (ItemNotFoundException e) {
-            System.out.printf("ItemID %S could not be found.", e.getItemID());
+            System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
         }
 
         try {
-            System.out.println("Add 1 item with item id abc123:");
-            Item item = controller.enterItemID("abc123",1);
+            System.out.println("Add 1 item with item id ghi_789:");
+            Item item = controller.enterItemID("ghi_789",1);
             System.out.printf("Item ID: %s\nItem name: %s\nItem cost: %s SEK\nVAT: %s%%\nItem description: %s\n%n",item.itemID, item.name, OutputHelper.getFloatWithColon(item.price), item.vatRate, item.description);
             System.out.printf("Total cost (incl VAT): %s SEK\nTotal VAT: %s SEK\n%n", OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()), OutputHelper.getFloatWithColon(sale.getTotalVAT()));
         }
         catch (ItemNotFoundException e) {
-            System.out.printf("ItemID %S could not be found.", e.getItemID());
+            System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
         }
 
         try {
@@ -55,7 +55,7 @@ public class View {
             System.out.printf("Total cost (incl VAT): %s SEK\nTotal VAT: %s SEK\n%n", OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()), OutputHelper.getFloatWithColon(sale.getTotalVAT()));
         }
         catch (ItemNotFoundException e) {
-                System.out.printf("ItemID %S could not be found.", e.getItemID());
+                System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
         }
 
         System.out.println("Signaling discount request");
