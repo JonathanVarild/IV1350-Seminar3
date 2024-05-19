@@ -1,9 +1,6 @@
 package controller;
 
-import integration.ExternalAccountingSystem;
-import integration.ExternalInventorySystem;
-import integration.Printer;
-import integration.Register;
+import integration.*;
 import model.TotalRevenueFileOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,7 @@ class ControllerTest {
         Printer printer = new Printer();
         TotalRevenueView totalRevenueView = new TotalRevenueView();
         TotalRevenueFileOutput totalRevenueFileOutput = new TotalRevenueFileOutput();
-        Controller controller = new Controller(ExternalInventorySystem.getExternalInventorySystem(), ExternalAccountingSystem.getExternalAccountingSystem(), register, printer, totalRevenueView, totalRevenueFileOutput);
+        Controller controller = new Controller(DiscountRegister.getDiscountRegister(), ExternalInventorySystem.getExternalInventorySystem(), ExternalAccountingSystem.getExternalAccountingSystem(), register, printer, totalRevenueView, totalRevenueFileOutput);
     }
 
     @Test

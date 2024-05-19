@@ -99,7 +99,7 @@ public class PaymentTransaction {
      */
     private void notifyObservers() {
         for (RevenueObserver obs : revenueObservers) {
-            obs.addRevenue(paid);
+            obs.addRevenue(toPay);
         }
     }
 

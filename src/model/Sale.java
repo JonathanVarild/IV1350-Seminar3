@@ -1,6 +1,7 @@
 package model;
 
 import integration.DatabaseUnavailableException;
+import integration.DiscountRegister;
 import integration.ExternalInventorySystem;
 import integration.ItemNotFoundException;
 
@@ -12,11 +13,13 @@ import java.util.Map;
 public class Sale {
 
     private ExternalInventorySystem inventorySystem;
+    private DiscountRegister discountRegister;
 
     public LocalDateTime time;
     private HashMap<String, Item> items = new HashMap<>();
     private float runningTotal = 0f;
     private float totalVAT = 0f;
+    private float totalDiscount = 0f;
     String actionsLog = "";
 
     /**
@@ -24,7 +27,8 @@ public class Sale {
      * 
      * @param inventorySystem The external inventory system.
      */
-    public Sale(ExternalInventorySystem inventorySystem) {
+    public Sale(DiscountRegister discountRegister, ExternalInventorySystem inventorySystem) {
+        this.discountRegister = discountRegister;
         this.inventorySystem = inventorySystem;
         time = LocalDateTime.now();
     }
@@ -87,8 +91,16 @@ public class Sale {
         return totalVAT;
     }
 
+    public float getTotalDiscount() {
+        return totalDiscount;
+    }
+
     public HashMap<String, Item> getItems() {
         return items;
+    }
+
+    public Item[] getItemsArray() {
+        return items.values().toArray(new Item[0]);
     }
 
     /**
@@ -96,8 +108,25 @@ public class Sale {
      * 
      * @param customerID The customer ID.
      */
-    public void applyDiscounts(int customerID) {
+    public Discount[] applyDiscounts(String customerID) {
+        Discount[] discounts = discountRegister.getDiscounts(customerID, getItemsArray());
 
+        for (Discount discount : discounts) {
+
+            if (discount.getItemID() == null) {
+                float discountReduction = discount.getTotalPriceReduction(runningTotal);
+                runningTotal -= discountReduction;
+                totalDiscount += discountReduction;
+            }
+            else {
+                Item item = items.get(discount.getItemID());
+                float discountReduction = discount.getItemPriceReduction(item);
+                updateTotals(-discountReduction,item.vatRate,item.quantity);
+                totalDiscount += discountReduction;
+            }
+        }
+
+        return discounts;
     }
 
     /**

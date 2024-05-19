@@ -4,6 +4,7 @@ import com.sun.tools.internal.ws.wsdl.document.Output;
 import controller.Controller;
 import integration.DatabaseUnavailableException;
 import integration.ItemNotFoundException;
+import model.Discount;
 import model.Item;
 import model.PaymentTransaction;
 import model.Sale;
@@ -59,8 +60,12 @@ public class View {
                 System.out.printf("ItemID %S could not be found.", e.getItemID());
         }
 
+        System.out.println("Signaling discount request");
+        Discount[] discounts = controller.discountRequest("Customer_1111");
+        System.out.printf("Applied %d discounts totalling %S SEK\n", discounts.length, OutputHelper.getFloatWithColon(sale.getTotalDiscount()));
+
         PaymentTransaction transaction = controller.endSale();
-        System.out.printf("End sale:\nTotal cost (incl VAT): %s\n%n", OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()));
+        System.out.printf("\nEnd sale:\nTotal cost (incl VAT): %s\nTotal VAT: %s SEK\n\n", OutputHelper.getFloatWithColon(sale.getRunningTotal() + sale.getTotalVAT()), OutputHelper.getFloatWithColon(sale.getTotalVAT()));
 
         try
         {

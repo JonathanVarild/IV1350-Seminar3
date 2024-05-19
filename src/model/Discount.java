@@ -2,22 +2,28 @@ package model;
 
 public class Discount {
 
-    private int appliesToItemID;
-    private float sumToBeReduced;
-    private int percentageToBeReduced;
+    private DiscountStrategy discountStrategy;
+    private String appliesToItemID;
 
     /**
-     * Creates a new instance of the Discount class.
+     * Create a new instance of the Discount class without specifying an itemID.
+     *
+     * @param discountStrategy The discount strategy used for the discount.
+     */
+    public Discount(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    /**
+     * Creates a new instance of the Discount class and also specify an itemID.
      * The discount class represents a discount that can be applied to an item.
      * 
      * @param appliesToItemID The item ID that the discount applies to.
-     * @param sumToBeReduced The sum to be reduced.
-     * @param percentageToBeReduced The percentage to be reduced.
+     * @param discountStrategy The discount strategy used for the discount.
      */
-    public Discount(int appliesToItemID, float sumToBeReduced, int percentageToBeReduced) {
+    public Discount(DiscountStrategy discountStrategy, String appliesToItemID) {
+        this.discountStrategy = discountStrategy;
         this.appliesToItemID = appliesToItemID;
-        this.sumToBeReduced = sumToBeReduced;
-        this.percentageToBeReduced = percentageToBeReduced;
     }
 
     /**
@@ -25,25 +31,35 @@ public class Discount {
      * 
      * @return The item ID.
      */
-    public int getItemID() {
+    public String getItemID() {
         return appliesToItemID;
     }
 
     /**
-     * Gets the sum to be reduced from the item price.
-     * 
-     * @return The sum to be reduced.
+     * Used to calculate the price reduction for the discount.
+     *
+     * @param totalAmount The total amount of the cart.
+     *
+     * @return The amount to be redacted from the total cost.
      */
-    public float getSumReduction() {
-        return sumToBeReduced;
+    public float getTotalPriceReduction(float totalAmount) {
+        if (appliesToItemID == null) {
+            return discountStrategy.calculatePriceReduction(totalAmount);
+        }
+        return 0;
     }
 
     /**
-     * Gets the percentage to be reduced from the item price.
-     * 
-     * @return The percentage to be reduced.
+     * Used to calculate the price reduction for the discount.
+     *
+     * @param item The item to reduce the cost from.
+     *
+     * @return The amount to be redacted from the total cost.
      */
-    public int getPercentageReduction() {
-        return percentageToBeReduced;
+    public float getItemPriceReduction(Item item) {
+        if (appliesToItemID != null) {
+            return discountStrategy.calculatePriceReduction(item.price);
+        }
+        return 0;
     }
 }

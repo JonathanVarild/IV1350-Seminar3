@@ -7,6 +7,7 @@ import view.TotalRevenueView;
 
 public class Controller {
 
+    private DiscountRegister discountRegister;
     private ExternalInventorySystem inventorySystem;
     private ExternalAccountingSystem accountingSystem;
     private Register register;
@@ -27,7 +28,8 @@ public class Controller {
      * @param printer The printer.
      */
 
-    public Controller(ExternalInventorySystem inventorySystem, ExternalAccountingSystem accountingSystem, Register register, Printer printer, TotalRevenueView totalRevenueView, TotalRevenueFileOutput totalRevenueFileOutput) {
+    public Controller(DiscountRegister discountRegister, ExternalInventorySystem inventorySystem, ExternalAccountingSystem accountingSystem, Register register, Printer printer, TotalRevenueView totalRevenueView, TotalRevenueFileOutput totalRevenueFileOutput) {
+        this.discountRegister = discountRegister;
         this.inventorySystem = inventorySystem;
         this.accountingSystem = accountingSystem;
         this.register = register;
@@ -42,7 +44,7 @@ public class Controller {
      * Resets the transaction to null to ensure that no previous transaction is still active.
      */
     public Sale startSale() {
-        sale = new Sale(inventorySystem);
+        sale = new Sale(discountRegister, inventorySystem);
         transaction = null;
         return sale;
     }
@@ -95,8 +97,8 @@ public class Controller {
      * 
      * @param customerID The customerID of the customer requesting the discount.
      */
-    public void discountRequest(int customerID) {
-
+    public Discount[] discountRequest(String customerID) {
+        return sale.applyDiscounts(customerID);
     }
 
 }

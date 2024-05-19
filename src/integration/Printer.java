@@ -31,7 +31,7 @@ public class Printer {
         String receiptString = "";
 
         receiptString += "------------------ Begin receipt -------------------\n";
-        receiptString += String.format("Time of sale: %s\n\n", sale.time.format(dateFormat));
+        receiptString += String.format("Time of sale: %s\nTotal discount: %S SEK\n\n", sale.time.format(dateFormat), OutputHelper.getFloatWithColon(sale.getTotalDiscount()));
 
         for (Map.Entry<String, Item> entry : sale.getItems().entrySet()) {
             String itemID = entry.getKey();
