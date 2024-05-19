@@ -4,8 +4,10 @@ import integration.ExternalAccountingSystem;
 import integration.ExternalInventorySystem;
 import integration.Printer;
 import integration.Register;
+import model.TotalRevenueFileOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.TotalRevenueView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +21,9 @@ class ControllerTest {
         ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
         Register register = new Register();
         Printer printer = new Printer();
-        Controller controller = new Controller(inventorySystem, accountingSystem, register, printer);
+        TotalRevenueView totalRevenueView = new TotalRevenueView();
+        TotalRevenueFileOutput totalRevenueFileOutput = new TotalRevenueFileOutput();
+        Controller controller = new Controller(inventorySystem, accountingSystem, register, printer, totalRevenueView, totalRevenueFileOutput);
     }
 
     @Test

@@ -1,0 +1,32 @@
+package model;
+
+import utilities.OutputHelper;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class TotalRevenueFileOutput implements RevenueObserver {
+    private float totalRevenue = 0;
+    private PrintWriter printWriter;
+
+    public TotalRevenueFileOutput() {
+        try {
+            printWriter = new PrintWriter(new FileWriter("revenue_output.txt"), true);
+        }
+        catch (IOException e) {
+            System.out.println("Failed to create file for revenue output.");
+        }
+    }
+
+    private void printCurrentState() {
+        printWriter.println(String.format("TotalRevenueView: Current revenue is %S\n", OutputHelper.getFloatWithColon(totalRevenue)));
+    }
+
+    @Override
+    public void addRevenue(float amount) {
+        totalRevenue += amount;
+        printCurrentState();
+    }
+
+}

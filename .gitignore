@@ -47,3 +47,4 @@ out/
 !**/src/main/resources/filtered-resources/
 /test_errors.txt
 /errors.txt
+/revenue_output.txt

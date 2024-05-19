@@ -2,7 +2,9 @@ package startup;
 
 import controller.Controller;
 import integration.*;
+import model.TotalRevenueFileOutput;
 import utilities.ErrorLogger;
+import view.TotalRevenueView;
 import view.View;
 
 public class Main {
@@ -22,7 +24,9 @@ public class Main {
         final Printer printer = new Printer();
         final Register register = new Register();
 
-        final Controller controller = new Controller(inventorySystem, accountingSystem, register, printer);
+        final TotalRevenueView totalRevenueView = new TotalRevenueView();
+        final TotalRevenueFileOutput totalRevenueFileOutput = new TotalRevenueFileOutput();
+        final Controller controller = new Controller(inventorySystem, accountingSystem, register, printer, totalRevenueView, totalRevenueFileOutput);
         final View view = new View(controller);
 
         view.runProgram();

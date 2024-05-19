@@ -1,10 +1,9 @@
 package controller;
 
 import integration.*;
-import model.Item;
-import model.PaymentTransaction;
-import model.Sale;
+import model.*;
 import utilities.OutputHelper;
+import view.TotalRevenueView;
 
 public class Controller {
 
@@ -12,6 +11,9 @@ public class Controller {
     private ExternalAccountingSystem accountingSystem;
     private Register register;
     private Printer printer;
+
+    private TotalRevenueView totalRevenueView;
+    private TotalRevenueFileOutput totalRevenueFileOutput;
 
     private Sale sale;
     private PaymentTransaction transaction;
@@ -25,11 +27,13 @@ public class Controller {
      * @param printer The printer.
      */
 
-    public Controller(ExternalInventorySystem inventorySystem, ExternalAccountingSystem accountingSystem, Register register, Printer printer) {
+    public Controller(ExternalInventorySystem inventorySystem, ExternalAccountingSystem accountingSystem, Register register, Printer printer, TotalRevenueView totalRevenueView, TotalRevenueFileOutput totalRevenueFileOutput) {
         this.inventorySystem = inventorySystem;
         this.accountingSystem = accountingSystem;
         this.register = register;
         this.printer = printer;
+        this.totalRevenueView = totalRevenueView;
+        this.totalRevenueFileOutput = totalRevenueFileOutput;
     }
 
 
@@ -54,6 +58,8 @@ public class Controller {
         float totalVAT = sale.getTotalVAT();
 
         transaction = new PaymentTransaction(sale, register, printer);
+        transaction.addRevenueObserver(totalRevenueView);
+        transaction.addRevenueObserver(totalRevenueFileOutput);
         return transaction;
     }
 

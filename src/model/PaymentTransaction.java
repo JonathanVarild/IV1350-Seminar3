@@ -3,6 +3,9 @@ package model;
 import integration.Printer;
 import integration.Register;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PaymentTransaction {
 
     private Register register;
@@ -12,6 +15,8 @@ public class PaymentTransaction {
     private Sale sale;
     private float toPay;
     private float paid = 0;
+
+    private List<RevenueObserver> revenueObservers = new ArrayList<>();
 
     /**
      * Creates a new instance of the PaymentTransaction class.
@@ -40,6 +45,8 @@ public class PaymentTransaction {
         register.withdrawAmount(getChange());
 
         receiptString = printer.printReceipt(sale);
+
+        notifyObservers();
     }
 
     /**
@@ -69,8 +76,31 @@ public class PaymentTransaction {
         return paid - toPay;
     }
 
+    /**
+     * Used to get the string to be printed on the receipt.
+     *
+     * @return String of receipt.
+     */
     public String getReceiptString() {
         return receiptString;
+    }
+
+    /**
+     * Used to add a new RevenueObserver to the class.
+     *
+     * @param obs RevenueObserver to be added.
+     */
+    public void addRevenueObserver(RevenueObserver obs) {
+        revenueObservers.add(obs);
+    }
+
+    /**
+     * Used to notify the revenueObservers of a change.
+     */
+    private void notifyObservers() {
+        for (RevenueObserver obs : revenueObservers) {
+            obs.addRevenue(paid);
+        }
     }
 
 }

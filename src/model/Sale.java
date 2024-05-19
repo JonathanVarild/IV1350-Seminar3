@@ -127,6 +127,11 @@ public class Sale {
         }
     }
 
+    /**
+     * Used to get the actions log for what has been done within the sale.
+     *
+     * @return Log summary as a string.
+     */
     public String getActionsLog() {
         return actionsLog;
     }
