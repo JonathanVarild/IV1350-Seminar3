@@ -6,7 +6,7 @@ package se.kth.iv1350.pos.model;
  */
 public class FlatRateDiscount implements DiscountStrategy {
 
-    float priceReduction;
+    private float priceReduction;
 
     /**
      * Constructor for FlatRateDiscount.
