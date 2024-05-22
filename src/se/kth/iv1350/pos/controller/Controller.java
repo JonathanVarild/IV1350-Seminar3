@@ -57,9 +57,6 @@ public class Controller {
      * @return Output string for view with the total cost of the sale.
      */
     public PaymentTransaction endSale() {
-        float runningTotal = sale.getRunningTotal();
-        float totalVAT = sale.getTotalVAT();
-
         transaction = new PaymentTransaction(sale, register, printer);
         transaction.addRevenueObserver(totalRevenueView);
         transaction.addRevenueObserver(totalRevenueFileOutput);
@@ -102,4 +99,12 @@ public class Controller {
         return sale.applyDiscounts(customerID);
     }
 
+    /**
+     * Method used to get the current transaction.
+     *
+     * @return The current PaymentTransaction.
+     */
+    public PaymentTransaction getTransaction() {
+        return transaction;
+    }
 }
