@@ -9,8 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DiscountRegisterTest {
 
+    DiscountRegister discountRegister;
+
     @BeforeEach
     void setUp() {
+        discountRegister = DiscountRegister.getDiscountRegister();
     }
 
     @Test
@@ -21,7 +24,7 @@ class DiscountRegisterTest {
     @Test
     void getDiscountsTest() throws ItemNotFoundException {
         Item[] items = new Item[] {ExternalInventorySystem.getExternalInventorySystem().getItemInfo("TEST_ITEM")};
-        Discount[] discounts = DiscountRegister.getDiscountRegister().getDiscounts("TEST_CUSTOMER", items);
+        Discount[] discounts = discountRegister.getDiscounts("TEST_CUSTOMER", items);
         assertEquals(discounts.length, 2, "There should be 2 types of discounts returned by getDiscounts for testing purposes.");
     }
 }
