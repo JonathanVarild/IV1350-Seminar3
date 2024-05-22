@@ -37,7 +37,7 @@ class SaleTest {
         sale.addItemID("abc123", 1);
         assertEquals(29.9f, sale.getRunningTotal(), "Running total before discount.");
         sale.applyDiscounts("Customer_3333");
-        assertEquals(26.91f, sale.getRunningTotal(), "Running total after discount.");
+        assertEquals(16.91f, sale.getRunningTotal(), "Running total after discount.");
     }
 
     @Test
