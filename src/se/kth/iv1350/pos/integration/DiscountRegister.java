@@ -21,12 +21,12 @@ public class DiscountRegister {
      * This class instance represents a virtual version of the external discount register.
      */
     private DiscountRegister() {
-        customerDiscounts.put("TEST_CUSTOMER", new Discount(new PercentageDiscount(20), "abc123"));
+        customerDiscounts.put("TEST_CUSTOMER", new Discount(new PercentageDiscount(20), "TEST_ITEM"));
         customerDiscounts.put("Customer_1111", new Discount(new FlatRateDiscount(20)));
         customerDiscounts.put("Customer_2222", new Discount(new PercentageDiscount(20)));
         customerDiscounts.put("Customer_3333", new Discount(new PercentageDiscount(10), "abc123"));
 
-        globalDiscounts.add(new Discount(new FlatRateDiscount(10f), "TEST_ITEM"));
+        globalDiscounts.add(new Discount(new FlatRateDiscount(10f)));
         globalDiscounts.add(new Discount(new FlatRateDiscount(4.9f), "def456"));
     }
 

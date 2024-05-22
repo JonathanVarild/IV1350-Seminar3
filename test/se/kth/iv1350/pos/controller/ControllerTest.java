@@ -46,11 +46,11 @@ class ControllerTest {
         controller.startSale();
 
         try {
-            Item item = controller.enterItemID("abc123", 4);
-            assertNotNull(item, "EnterItemID should return Item object for 'abc123'.");
+            Item item = controller.enterItemID("TEST_ITEM", 4);
+            assertNotNull(item, "EnterItemID should return Item object for 'TEST_ITEM'.");
         }
         catch (ItemNotFoundException e) {
-            fail("Item 'abc123' should not throw ItemNotFoundException.");
+            fail("Item 'TEST_ITEM' should not throw ItemNotFoundException.");
         }
     }
 
@@ -70,7 +70,7 @@ class ControllerTest {
     @Test
     void enterAmountTest() throws ItemNotFoundException {
         controller.startSale();
-        controller.enterItemID("abc123", 4);
+        controller.enterItemID("TEST_ITEM", 4);
         PaymentTransaction transaction = controller.endSale();
         float toPay = transaction.getAmountLeft();
         float payAmount = 20;
@@ -81,7 +81,7 @@ class ControllerTest {
     @Test
     void discountRequestTest() throws ItemNotFoundException {
         Sale sale = controller.startSale();
-        controller.enterItemID("abc123", 4);
+        controller.enterItemID("TEST_ITEM", 4);
         float runningTotal = sale.getRunningTotal();
         float totalVAT = sale.getTotalVAT();
         controller.discountRequest("TEST_CUSTOMER");
