@@ -15,6 +15,7 @@ public class ExternalInventorySystem {
      * This class instance represents a virtual version of the external inventory system.
      */
     private ExternalInventorySystem() {
+        inventory.put("TEST_ITEM", new Item("TEST_ITEM", "Test Item", "Item used for testing purposes.", 100f, 10, 99));
         inventory.put("abc123", new Item("abc123", "BigWheel Oatmeal", "BigWheel Oatmeal 500g, whole grain oats, high fiber , gluten free", 29.9f, 6, 22));
         inventory.put("def456", new Item("def456", "YouGoGo Blueberry", "YouGoGo Blueberry 240g, low sugar youghurt, blueberry flavour", 14.9f, 6, 53));
     }

@@ -26,6 +26,7 @@ public class DiscountRegister {
         customerDiscounts.put("Customer_2222", new Discount(new PercentageDiscount(20)));
         customerDiscounts.put("Customer_3333", new Discount(new PercentageDiscount(10), "abc123"));
 
+        globalDiscounts.add(new Discount(new FlatRateDiscount(10f), "TEST_ITEM"));
         globalDiscounts.add(new Discount(new FlatRateDiscount(4.9f), "def456"));
     }
 
