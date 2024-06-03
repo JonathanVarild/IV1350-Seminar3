@@ -1,5 +1,6 @@
 package se.kth.iv1350.pos.model;
 
+import se.kth.iv1350.pos.integration.DatabaseUnavailableException;
 import se.kth.iv1350.pos.integration.DiscountRegister;
 import se.kth.iv1350.pos.integration.ExternalInventorySystem;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
@@ -41,8 +42,9 @@ public class Sale {
      * @return The item that was added to the sale.
      *
      * @throws ItemNotFoundException if the itemID couldn't be found
+     * @throws DatabaseUnavailableException the database could not be contacted.
      */
-    public Item addItemID(String itemID, int quantity) throws ItemNotFoundException {
+    public Item addItemID(String itemID, int quantity) throws ItemNotFoundException, DatabaseUnavailableException {
         boolean isScanned = isItemScanned(itemID);
         Item item;
 
@@ -180,8 +182,11 @@ public class Sale {
 
     /**
      * Used to signal that the sale is complete and that the inventory should be reduced.
+     *
+     * @throws ItemNotFoundException if an item in the sale cannot be found.
+     * @throws DatabaseUnavailableException if the database can't be contacted.
      */
-    public void completeSale() throws ItemNotFoundException{
+    public void completeSale() throws ItemNotFoundException, DatabaseUnavailableException {
         for (Map.Entry<String, Item> entry : items.entrySet()) {
             String itemID = entry.getKey();
             Item item = entry.getValue();

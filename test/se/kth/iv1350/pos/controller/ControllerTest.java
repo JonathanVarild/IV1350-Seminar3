@@ -52,6 +52,9 @@ class ControllerTest {
         catch (ItemNotFoundException e) {
             fail("Item 'TEST_ITEM' should not throw ItemNotFoundException.");
         }
+        catch (DatabaseUnavailableException e) {
+            fail("Item 'TEST_ITEM' should not throw DatabaseUnavailableException.");
+        }
     }
 
     @Test
@@ -65,10 +68,13 @@ class ControllerTest {
         catch (ItemNotFoundException e) {
             assertEquals(e.getItemID(), "INVALID_ITEM_ID", "Exception getItemID() should return 'INVALID_ITEM_ID'.");
         }
+        catch (DatabaseUnavailableException e) {
+            fail("EnterItemID should throw ItemNotFoundException for invalid item.");
+        }
     }
 
     @Test
-    void enterAmountTest() throws ItemNotFoundException {
+    void enterAmountTest() throws ItemNotFoundException, DatabaseUnavailableException {
         controller.startSale();
         controller.enterItemID("TEST_ITEM", 4);
         PaymentTransaction transaction = controller.endSale();
@@ -79,7 +85,7 @@ class ControllerTest {
     }
 
     @Test
-    void discountRequestTest() throws ItemNotFoundException {
+    void discountRequestTest() throws ItemNotFoundException, DatabaseUnavailableException {
         Sale sale = controller.startSale();
         controller.enterItemID("TEST_ITEM", 4);
         float runningTotal = sale.getRunningTotal();

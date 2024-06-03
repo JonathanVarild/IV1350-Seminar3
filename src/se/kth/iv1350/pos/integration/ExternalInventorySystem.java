@@ -39,7 +39,7 @@ public class ExternalInventorySystem {
      * @throws ItemNotFoundException if the provided itemID cannot be found in the External Inventory System.
      * @throws DatabaseUnavailableException if the External Inventory System is unavailable.
      */
-    public Item getItemInfo(String itemID) throws ItemNotFoundException {
+    public Item getItemInfo(String itemID) throws ItemNotFoundException, DatabaseUnavailableException {
 
         if (itemID.equals("MOCK_DATABASE_ERROR")) {
             throw new DatabaseUnavailableException("External Inventory System");
@@ -63,7 +63,7 @@ public class ExternalInventorySystem {
      * @throws ItemNotFoundException if the provided itemID cannot be found in the External Inventory System.
      * @throws DatabaseUnavailableException if the External Inventory System is unavailable.
      */
-    public void reduceInventory(String itemID, int quantity) throws ItemNotFoundException {
+    public void reduceInventory(String itemID, int quantity) throws ItemNotFoundException, DatabaseUnavailableException {
         if (itemID.equals("MOCK_DATABASE_ERROR")) {
             throw new DatabaseUnavailableException("External Inventory System");
         }
@@ -82,7 +82,7 @@ public class ExternalInventorySystem {
      * @throws ItemNotFoundException if the provided itemID cannot be found in the External Inventory System.
      * @throws DatabaseUnavailableException if the External Inventory System is unavailable.
      */
-    public void incrementInventory(String itemID, int quantity) throws ItemNotFoundException {
+    public void incrementInventory(String itemID, int quantity) throws ItemNotFoundException, DatabaseUnavailableException {
         if (itemID.equals("MOCK_DATABASE_ERROR")) {
             throw new DatabaseUnavailableException("External Inventory System");
         }
@@ -102,7 +102,7 @@ public class ExternalInventorySystem {
      * @throws ItemNotFoundException if the itemID cannot be found.
      * @throws DatabaseUnavailableException if the External Inventory System is unavailable.
      */
-    public int getInventoryQuantity(String itemID) throws ItemNotFoundException {
+    public int getInventoryQuantity(String itemID) throws ItemNotFoundException, DatabaseUnavailableException {
         if (itemID.equals("MOCK_DATABASE_ERROR")) {
             throw new DatabaseUnavailableException("External Inventory System");
         }

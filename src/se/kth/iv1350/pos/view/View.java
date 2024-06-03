@@ -1,12 +1,15 @@
 package se.kth.iv1350.pos.view;
 
 import se.kth.iv1350.pos.controller.Controller;
+import se.kth.iv1350.pos.integration.DatabaseUnavailableException;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
 import se.kth.iv1350.pos.model.Discount;
 import se.kth.iv1350.pos.model.Item;
 import se.kth.iv1350.pos.model.PaymentTransaction;
 import se.kth.iv1350.pos.model.Sale;
 import se.kth.iv1350.pos.utilities.OutputHelper;
+
+import javax.xml.crypto.Data;
 
 public class View {
 
@@ -37,6 +40,9 @@ public class View {
         catch (ItemNotFoundException e) {
             System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
         }
+        catch (DatabaseUnavailableException e) {
+            System.out.printf("Could not communicate with database %s.\n", e.getDatabaseName());
+        }
 
         try {
             System.out.println("Add 1 item with item id ghi_789:");
@@ -47,6 +53,9 @@ public class View {
         catch (ItemNotFoundException e) {
             System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
         }
+        catch (DatabaseUnavailableException e) {
+            System.out.printf("Could not communicate with database %s.\n", e.getDatabaseName());
+        }
 
         try {
             System.out.println("Add 1 item with item id def456:");
@@ -56,6 +65,9 @@ public class View {
         }
         catch (ItemNotFoundException e) {
                 System.out.printf("ItemID %s could not be found.\n\n", e.getItemID());
+        }
+        catch (DatabaseUnavailableException e) {
+            System.out.printf("Could not communicate with database %s.\n", e.getDatabaseName());
         }
 
         System.out.println("Signaling discount request");
@@ -75,6 +87,9 @@ public class View {
         }
         catch (ItemNotFoundException e) {
             System.out.printf("Could not complete sale due to missing itemID (%s).", e.getItemID());
+        }
+        catch (DatabaseUnavailableException e) {
+            System.out.printf("Could not communicate with database %s.\n", e.getDatabaseName());
         }
     }
 }

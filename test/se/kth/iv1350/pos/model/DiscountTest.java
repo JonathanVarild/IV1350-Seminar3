@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.kth.iv1350.pos.integration.DatabaseUnavailableException;
 import se.kth.iv1350.pos.integration.ExternalInventorySystem;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
 
@@ -51,7 +52,7 @@ class DiscountTest {
      * Test to check that a general discount returns zero price reduction when calling getItemPriceReduction.
      */
     @Test
-    void getItemPriceReductionGeneralDiscountTest() throws ItemNotFoundException {
+    void getItemPriceReductionGeneralDiscountTest() throws ItemNotFoundException, DatabaseUnavailableException {
         float priceReduction = generalDiscount.getItemPriceReduction(inventorySystem.getItemInfo("TEST_ITEM"));
         assertEquals(priceReduction, 0, "Method getItemPriceReduction should return 0 SEK for a general discount.");
     }
@@ -61,7 +62,7 @@ class DiscountTest {
      * Test to check that an item specific discount returns the correct price reduction when calling getItemPriceReduction.
      */
     @Test
-    void getItemPriceReductionItemDiscountTest() throws ItemNotFoundException {
+    void getItemPriceReductionItemDiscountTest() throws ItemNotFoundException, DatabaseUnavailableException {
         float priceReduction = itemDiscount.getItemPriceReduction(inventorySystem.getItemInfo("TEST_ITEM"));
         assertEquals(priceReduction, 10, "Method getItemPriceReduction should return 10 SEK for the item-specific discount on 'TEST_ITEM'.");
     }

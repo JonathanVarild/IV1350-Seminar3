@@ -22,7 +22,7 @@ class DiscountRegisterTest {
     }
 
     @Test
-    void getDiscountsTest() throws ItemNotFoundException {
+    void getDiscountsTest() throws ItemNotFoundException, DatabaseUnavailableException {
         Item[] items = new Item[] {ExternalInventorySystem.getExternalInventorySystem().getItemInfo("TEST_ITEM")};
         Discount[] discounts = discountRegister.getDiscounts("TEST_CUSTOMER", items);
         assertEquals(discounts.length, 2, "There should be 2 types of discounts returned by getDiscounts for testing purposes.");

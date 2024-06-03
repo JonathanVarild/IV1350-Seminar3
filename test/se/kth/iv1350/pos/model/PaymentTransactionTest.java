@@ -16,7 +16,7 @@ class PaymentTransactionTest {
     private PaymentTransaction paymentTransaction;
 
     @BeforeEach
-    void setUp() throws ItemNotFoundException{
+    void setUp() throws ItemNotFoundException, DatabaseUnavailableException {
         discountRegister = DiscountRegister.getDiscountRegister();
         externalInventorySystem = ExternalInventorySystem.getExternalInventorySystem();
 

@@ -22,7 +22,7 @@ class PrinterTest {
     }
 
     @Test
-    void printReceipt() throws ItemNotFoundException {
+    void printReceipt() throws ItemNotFoundException, DatabaseUnavailableException {
 
         sale.addItemID("TEST_ITEM", 5);
         sale.applyDiscounts("TEST_CUSTOMER");

@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.kth.iv1350.pos.integration.DatabaseUnavailableException;
 import se.kth.iv1350.pos.integration.DiscountRegister;
 import se.kth.iv1350.pos.integration.ExternalInventorySystem;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
@@ -22,17 +23,16 @@ class SaleTest {
     }
 
     @Test
-    void testAddItemID() throws ItemNotFoundException {
-
+    void testAddItemID() throws ItemNotFoundException, DatabaseUnavailableException {
         assertEquals(0, sale.getItems().size(), "Sale should be empty on start.");
         assertNotNull(sale.addItemID("abc123", 1), "addItemID should not return Null.");
         assertEquals(29.9f, sale.getRunningTotal(), "Item should be added to Sale.");
-        assertInstanceOf(Item.class, sale.addItemID("abc123", 1));
+        assertNotNull(sale.addItemID("abc123", 1));
     }
 
 
     @Test
-    void testApplyDiscounts() throws ItemNotFoundException {
+    void testApplyDiscounts() throws ItemNotFoundException, DatabaseUnavailableException {
 
         sale.addItemID("abc123", 1);
         assertEquals(29.9f, sale.getRunningTotal(), "Running total before discount.");
@@ -41,7 +41,7 @@ class SaleTest {
     }
 
     @Test
-    void testCompleteSale() throws ItemNotFoundException {
+    void testCompleteSale() throws ItemNotFoundException, DatabaseUnavailableException {
 
         int amountToCheck = inventorySystem.getInventoryQuantity("abc123");
         sale.addItemID("abc123", 1);
