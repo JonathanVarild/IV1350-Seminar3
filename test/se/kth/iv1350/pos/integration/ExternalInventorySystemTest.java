@@ -27,7 +27,7 @@ class ExternalInventorySystemTest {
             fail("ItemNotFoundException should not have been thrown for ItemID 'abc123'.");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -41,7 +41,7 @@ class ExternalInventorySystemTest {
             assertEquals("NON_EXISTENT_ID", e.getItemID(), "ItemNotFoundException should return 'NON_EXISTENT_ID' when calling getItemID().");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -71,7 +71,7 @@ class ExternalInventorySystemTest {
             fail("ItemNotFoundException should not have been thrown for ItemID 'abc123'.");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -85,7 +85,7 @@ class ExternalInventorySystemTest {
             assertEquals("NON_EXISTENT_ID", e.getItemID(), "ItemNotFoundException should return 'NON_EXISTENT_ID' when calling getItemID().");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -115,7 +115,7 @@ class ExternalInventorySystemTest {
             fail("ItemNotFoundException should not have been thrown for ItemID 'abc123'.");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -129,7 +129,7 @@ class ExternalInventorySystemTest {
             assertEquals("NON_EXISTENT_ID", e.getItemID(), "ItemNotFoundException should return 'NON_EXISTENT_ID' when calling getItemID().");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -156,7 +156,7 @@ class ExternalInventorySystemTest {
             fail("ItemNotFoundException should not have been thrown for ItemID 'abc123'.");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
@@ -170,7 +170,7 @@ class ExternalInventorySystemTest {
             assertEquals("NON_EXISTENT_ID", e.getItemID(), "ItemNotFoundException should return 'NON_EXISTENT_ID' when calling getItemID().");
         }
         catch (DatabaseUnavailableException e) {
-            fail(e.getMessage());
+            fail("DatabaseUnavailableException should not have been thrown.");
         }
     }
 
