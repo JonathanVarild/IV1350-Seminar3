@@ -35,4 +35,13 @@ public class ExternalAccountingSystem {
     public static ExternalAccountingSystem getExternalAccountingSystem() {
         return EXTERNAL_ACCOUNTING_SYSTEM;
     }
+
+    /**
+     * Getter used to get the transactions list as an array.
+     *
+     * @return All transactions as an array.
+     */
+    public PaymentTransaction[] getTransactions() {
+        return transactions.toArray(new PaymentTransaction[0]);
+    }
 }

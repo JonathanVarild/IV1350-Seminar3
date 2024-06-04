@@ -72,8 +72,9 @@ public class Controller {
      * @return Output string for view with information related to the item added to the sale.
      *
      * @throws ItemNotFoundException the itemID couldn't be found.
+     * @throws DatabaseUnavailableException the database could not be contacted.
      */
-    public Item enterItemID(String itemID, int quantity) throws ItemNotFoundException {
+    public Item enterItemID(String itemID, int quantity) throws ItemNotFoundException, DatabaseUnavailableException {
         return sale.addItemID(itemID, quantity);
     }
 
@@ -83,8 +84,9 @@ public class Controller {
      * @param amount The amount paid by the customer.
      *
      * @throws ItemNotFoundException if a scanned item cannot be found in the inventory system.
+     * @throws DatabaseUnavailableException the database could not be contacted.
      */
-    public void enterAmount(float amount) throws ItemNotFoundException {
+    public void enterAmount(float amount) throws ItemNotFoundException, DatabaseUnavailableException {
         sale.completeSale();
         transaction.addPayment(amount);
         accountingSystem.saveTransaction(transaction);

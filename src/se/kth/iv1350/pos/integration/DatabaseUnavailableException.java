@@ -1,5 +1,6 @@
 package se.kth.iv1350.pos.integration;
 
+import se.kth.iv1350.pos.utilities.LoggedException;
 import se.kth.iv1350.pos.utilities.LoggedRuntimeException;
 
 /**

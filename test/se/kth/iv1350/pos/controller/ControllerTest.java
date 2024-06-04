@@ -46,11 +46,14 @@ class ControllerTest {
         controller.startSale();
 
         try {
-            Item item = controller.enterItemID("abc123", 4);
-            assertNotNull(item, "EnterItemID should return Item object for 'abc123'.");
+            Item item = controller.enterItemID("TEST_ITEM", 4);
+            assertNotNull(item, "EnterItemID should return Item object for 'TEST_ITEM'.");
         }
         catch (ItemNotFoundException e) {
-            fail("Item 'abc123' should not throw ItemNotFoundException.");
+            fail("Item 'TEST_ITEM' should not throw ItemNotFoundException.");
+        }
+        catch (DatabaseUnavailableException e) {
+            fail("Item 'TEST_ITEM' should not throw DatabaseUnavailableException.");
         }
     }
 
@@ -65,12 +68,15 @@ class ControllerTest {
         catch (ItemNotFoundException e) {
             assertEquals(e.getItemID(), "INVALID_ITEM_ID", "Exception getItemID() should return 'INVALID_ITEM_ID'.");
         }
+        catch (DatabaseUnavailableException e) {
+            fail("EnterItemID should throw ItemNotFoundException for invalid item.");
+        }
     }
 
     @Test
-    void enterAmountTest() throws ItemNotFoundException {
+    void enterAmountTest() throws ItemNotFoundException, DatabaseUnavailableException {
         controller.startSale();
-        controller.enterItemID("abc123", 4);
+        controller.enterItemID("TEST_ITEM", 4);
         PaymentTransaction transaction = controller.endSale();
         float toPay = transaction.getAmountLeft();
         float payAmount = 20;
@@ -79,9 +85,9 @@ class ControllerTest {
     }
 
     @Test
-    void discountRequestTest() throws ItemNotFoundException {
+    void discountRequestTest() throws ItemNotFoundException, DatabaseUnavailableException {
         Sale sale = controller.startSale();
-        controller.enterItemID("abc123", 4);
+        controller.enterItemID("TEST_ITEM", 4);
         float runningTotal = sale.getRunningTotal();
         float totalVAT = sale.getTotalVAT();
         controller.discountRequest("TEST_CUSTOMER");
